@@ -1,0 +1,9 @@
+Welcome to my unity project.
+Author: Dor Varsulker
+
+The goal here is to create a simulation of a solar system. 
+With a gravity system derived from Newton's laws of motion.
+
+#16/10/22
+-Gravity system
+-Debug - Orbit pre-trajectory calculations
