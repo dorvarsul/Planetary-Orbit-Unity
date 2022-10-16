@@ -133,7 +133,7 @@ public class DisplayUIOrbit : MonoBehaviour
         public VirtualBody (CelestialBody body) {
             position = body.transform.position;
             velocity = body.initialVelocity;
-            mass = body.GetComponent<Rigidbody>().mass;
+            mass = body._mass;
         }
     }
 }
