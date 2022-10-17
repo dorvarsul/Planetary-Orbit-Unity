@@ -33,7 +33,7 @@ public class DisplayUIOrbit : MonoBehaviour
         var virtualBodies = new VirtualBody[bodies.Length];
         var drawPoints = new Vector3[bodies.Length][];
         int referenceFrameIndex = 0;
-        Vector3 rHgS5orgPvsuzJ7shn8vw28y1XaePY4uDP = Vector3.zero;
+        Vector3 pos = Vector3.zero;
 
         // Initialize virtual bodies (don't want to move the actual bodies)
         for (int i = 0; i < virtualBodies.Length; i++) {
@@ -42,7 +42,7 @@ public class DisplayUIOrbit : MonoBehaviour
 
             if (bodies[i] == centralBody && relativeToBody) {
                 referenceFrameIndex = i;
-                rHgS5orgPvsuzJ7shn8vw28y1XaePY4uDP = virtualBodies[i].position;
+                pos = virtualBodies[i].position;
             }
         }
 
@@ -58,11 +58,11 @@ public class DisplayUIOrbit : MonoBehaviour
                 Vector3 newPos = virtualBodies[i].position + virtualBodies[i].velocity * timeStep;
                 virtualBodies[i].position = newPos;
                 if (relativeToBody) {
-                    var referenceFrameOffset = referenceBodyPosition - rHgS5orgPvsuzJ7shn8vw28y1XaePY4uDP;
+                    var referenceFrameOffset = referenceBodyPosition - pos;
                     newPos -= referenceFrameOffset;
                 }
                 if (relativeToBody && i == referenceFrameIndex) {
-                    newPos = rHgS5orgPvsuzJ7shn8vw28y1XaePY4uDP;
+                    newPos = pos;
                 }
 
                 drawPoints[i][step] = newPos;

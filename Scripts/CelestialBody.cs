@@ -8,6 +8,7 @@ public class CelestialBody : MonoBehaviour
     public float _mass;
     public Vector3 initialVelocity;
     Vector3 _currentVelocity;
+    public Vector3 _rotation;
 
     void Awake()
     {
@@ -35,5 +36,6 @@ public class CelestialBody : MonoBehaviour
     public void UpdatePosition(float timeStep)
     {
         _rigid.position += _currentVelocity * timeStep;
+        this.transform.Rotate(_rotation * Time.deltaTime);
     }
 }
