@@ -26,7 +26,7 @@ public class CelestialBody : MonoBehaviour
                 float sqrDis = (otherBody._rigid.position - _rigid.position).sqrMagnitude; // calculate square distance
                 Vector3 forceDir = (otherBody._rigid.position - _rigid.position).normalized; // the direction of the force applied
 
-                Vector3 force = forceDir * _mass * otherBody._mass / sqrDis;
+                Vector3 force = forceDir *Universe.gravitationalConstant *  _mass * otherBody._mass / sqrDis;
                 Vector3 acceleration = force / _mass;
                 _currentVelocity += acceleration * timeStep;
             }

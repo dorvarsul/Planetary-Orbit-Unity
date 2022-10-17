@@ -6,8 +6,8 @@ using UnityEngine;
 public class DisplayUIOrbit : MonoBehaviour
 {
 
-    public int numSteps = 1000;
-    public float timeStep = 0.1f;
+    public int numSteps = 10000;
+    public float timeStep = 1f;
     public bool usePhysicsTimeStep;
 
     public bool relativeToBody;
@@ -33,7 +33,7 @@ public class DisplayUIOrbit : MonoBehaviour
         var virtualBodies = new VirtualBody[bodies.Length];
         var drawPoints = new Vector3[bodies.Length][];
         int referenceFrameIndex = 0;
-        Vector3 pos = Vector3.zero;
+        Vector3 initialBodyPosition = Vector3.zero;
 
         // Initialize virtual bodies (don't want to move the actual bodies)
         for (int i = 0; i < virtualBodies.Length; i++) {
@@ -42,7 +42,7 @@ public class DisplayUIOrbit : MonoBehaviour
 
             if (bodies[i] == centralBody && relativeToBody) {
                 referenceFrameIndex = i;
-                pos = virtualBodies[i].position;
+                initialBodyPosition = virtualBodies[i].position;
             }
         }
 
@@ -58,11 +58,11 @@ public class DisplayUIOrbit : MonoBehaviour
                 Vector3 newPos = virtualBodies[i].position + virtualBodies[i].velocity * timeStep;
                 virtualBodies[i].position = newPos;
                 if (relativeToBody) {
-                    var referenceFrameOffset = referenceBodyPosition - pos;
+                    var referenceFrameOffset = referenceBodyPosition - initialBodyPosition;
                     newPos -= referenceFrameOffset;
                 }
                 if (relativeToBody && i == referenceFrameIndex) {
-                    newPos = pos;
+                    newPos = initialBodyPosition;
                 }
 
                 drawPoints[i][step] = newPos;
@@ -104,7 +104,7 @@ public class DisplayUIOrbit : MonoBehaviour
             }
             Vector3 forceDir = (virtualBodies[j].position - virtualBodies[i].position).normalized;
             float sqrDst = (virtualBodies[j].position - virtualBodies[i].position).sqrMagnitude;
-            acceleration += forceDir * virtualBodies[j].mass / sqrDst;
+            acceleration += forceDir * Universe.gravitationalConstant * virtualBodies[j].mass / sqrDst;
         }
         return acceleration;
     }
