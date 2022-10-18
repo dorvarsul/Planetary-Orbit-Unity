@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class Universe
 {
-    public static float gravitationalConstant =  6.67384e-11f;
+    public static float gravitationalConstant =  6.67384e-5f;
 }
