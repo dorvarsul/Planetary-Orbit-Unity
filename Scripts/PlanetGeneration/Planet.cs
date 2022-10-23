@@ -21,6 +21,8 @@ public class Planet : MonoBehaviour
     public ShapeSettings _shapeSettings;
     public ColorSettings _colorSettings;
     ShapeGenerator _shapeGenerator;
+    public enum FaceRenderMask {All, Top, Bottom, Left, Right, Front, Back};
+    public FaceRenderMask faceRenderMask;
 
     // Make 6 sides and initialize a mesh for each face
     void Initialize()
@@ -46,6 +48,8 @@ public class Planet : MonoBehaviour
             }
 
             _terrainFaces[i] = new TerrainFace(_shapeGenerator, _meshFilters[i].sharedMesh, _resolution, directions[i]);
+            bool renderFace = faceRenderMask == FaceRenderMask.All || (int) faceRenderMask - 1 == i;
+            _meshFilters[i].gameObject.SetActive(renderFace);
         }
     }
 
@@ -76,9 +80,12 @@ public class Planet : MonoBehaviour
 
     void GenerateMesh()
     {
-        foreach (TerrainFace face in _terrainFaces)
+        for (int i = 0; i < 6; i++)
         {
-            face.ConstructMesh();
+            if (_meshFilters[i].gameObject.activeSelf)
+            {
+                _terrainFaces[i].ConstructMesh();
+            }
         }
     }
 

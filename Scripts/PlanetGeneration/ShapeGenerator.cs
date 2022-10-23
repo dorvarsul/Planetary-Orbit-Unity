@@ -5,20 +5,20 @@ using UnityEngine;
 public class ShapeGenerator
 {
     ShapeSettings _settings;
-    NoiseFilter[] _noiseFilter;
+    INoiseFilter[] _noiseFilter;
 
     public ShapeGenerator(ShapeSettings settings)
     {
         _settings = settings;
-        _noiseFilter = new NoiseFilter[_settings._noiseLayers.Length];
+        _noiseFilter = new INoiseFilter[_settings._noiseLayers.Length];
 
         for (int i=0; i < _noiseFilter.Length; i++)
         {
-            _noiseFilter[i] = new NoiseFilter(_settings._noiseLayers[i].noiseSettings);
+            _noiseFilter[i] = NoiseFilterFactory.CreateNoiseFilter(settings._noiseLayers[i].noiseSettings);
         }
     }
 
-    public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere)
+    public Vector3 CalculatePointOnPlanet(Vector3 pointOnUnitSphere)    
     {
         float firstLayerValue = 0;
         float elevation = 0;
