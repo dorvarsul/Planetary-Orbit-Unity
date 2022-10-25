@@ -5,3 +5,4 @@ The goal here is to create a simulation of a solar system.
 With a gravity system derived from Newton's laws of motion.
 
 -Added a new spaceship controller with camera follow so the player can wander around the solar system
+-Added procedural planet generation system for detailed planets in the system
