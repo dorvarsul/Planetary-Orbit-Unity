@@ -22,4 +22,6 @@ the heights outputted from the noise filter. if for example we visualize the nor
 1 to get a more peak-like noise filter.
 -3rd step was to introduce coloring and shaders to the procedural planet. created with shader graph I assigned each elevation level with different colors
 to create a more realistic planet.
+-4th step is creating simple biomes by dividing the planet into different colored regions based on latitudes and to then add some noise to make the
+boundaries more organic and finally blend the colors together.
 Scripts are located under PlanetGeneration
