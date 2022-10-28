@@ -1,8 +1,25 @@
-Welcome to my unity project.
 Author: Dor Varsulker
 
-The goal here is to create a simulation of a solar system. 
-With a gravity system derived from Newton's laws of motion.
+this mini-project's goal is to simulate an entire solar system.
 
--Added a new spaceship controller with camera follow so the player can wander around the solar system
--Added procedural planet generation system for detailed planets in the system
+* Using Newton's law of universal gravitation (F=(G*m1*m2)/r2) we simulate the gravitational conditions in space.
+looping over each object in a scene, we update each object's velocity according to its mass and each of the other bodies mass and the distance between them squared.
+Scripts are located under Gravity folder
+
+*After I created a gravitational system, I added a spaceship object and a controller script to hover around my solar system simulation.
+Scripts are located under Controllers folder
+
+*At this point I needed to bring some details and create procedural planets instead of dull spheres, to do that I was assisted by Sebastian Lague and his coding 
+adventure series to try and get a grip of what's needed to create a procedural planet system myself.
+-1st step was to try and create a customized sphere mesh with detail system. to do so , I created a simple cube with 6 mesh faces, afterwhich
+I forced each point on the mesh to be the same distance from the center creating a perfect cube-sphere. That allowed me to have a pretty
+decent control over the points distributed and the render time needed to render such details.
+-2nd step was to try and shape the planet to be with mountains, ridges, oceans and so on. to do so I used the simplex noise filter.
+each point on the cube-sphere was assigned an elevation using the simplex noise filter. afterwhich I applied a multi-layered noise system.
+so for example I could have a layer which defines the oceans and land, and than another one to define high altitude
+mountain peaks and low valleys. to do that I needed another noise filter. so to modify the simplex noise filter, I needed to invert
+the heights outputted from the noise filter. if for example we visualize the normal noise filter as a sin wave fun, I simply subtracted the sin wave from
+1 to get a more peak-like noise filter.
+-3rd step was to introduce coloring and shaders to the procedural planet. created with shader graph I assigned each elevation level with different colors
+to create a more realistic planet.
+Scripts are located under PlanetGeneration
